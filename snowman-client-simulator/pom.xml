@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+    <artifactId>projectsnowman</artifactId>
+    <version>0.2-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>snowman-client-simulator</artifactId>
+  <name>Project Snowman Client Simulator</name>
+  <packaging>jar</packaging>
+  <description>
+    Client simulator for the Project Snowman example.
+  </description>
+
+  <dependencies>
+    <!-- Compile time dependencies -->
+    <dependency>
+      <groupId>org.reddwarfserver.client</groupId>
+      <artifactId>sgs-client-api</artifactId>
+    </dependency>
+
+    <!-- Runtime dependencies -->
+    <dependency>
+      <groupId>org.reddwarfserver.client</groupId>
+      <artifactId>sgs-client</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Compile and Runtime dependencies -->
+    <dependency>
+      <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+      <artifactId>snowman-common</artifactId>
+      <version>${version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <!-- Make the jar executable, referencing all of its dependencies -->
+      <plugin>
+	<artifactId>maven-jar-plugin</artifactId>
+	<configuration>
+	  <archive>
+	    <manifest>
+	      <addClasspath>true</addClasspath>
+	      <classpathPrefix>lib/</classpathPrefix>
+	      <mainClass>com.sun.darkstar.example.snowman.clientsimulator.ClientSimulator</mainClass>
+	    </manifest>
+	  </archive>
+	</configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+
+  <profiles>
+
+    <!-- The run-sim profile enables the antrun plugin
+	 to run the application in the process-test-resources
+	 phase of the lifecycle
+	 In order to run, use the following command:
+	 mvn process-test-resources -Prun-sim -->
+    <profile>
+      <id>run-sim</id>
+      <build>
+	<plugins>
+	  <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+	    <executions>
+	      <execution>
+		<id>run-sim</id>
+		<phase>process-test-resources</phase>
+		<goals>
+		  <goal>run</goal>
+		</goals>
+		<configuration>
+		  <tasks>
+		    <java classname="com.sun.darkstar.example.snowman.clientsimulator.ClientSimulator"
+			  fork="true">
+		      <jvmarg line="${jvm.args} ${jvm.args.extra}"/>
+		      <sysproperty key="java.util.logging.config.file"
+				   file="${logging.properties}"/>
+
+		      <sysproperty key="reliable" value="true"/>
+		      <sysproperty key="connectTimeout" value="${connectTimeout}"/>
+		      <sysproperty key="maxClients" value="${maxClients}"/>
+		      <sysproperty key="moveDelay" value="${moveDelay}"/>
+		      <sysproperty key="newClientDelay" value="${newClientDelay}"/>
+		      <sysproperty key="minWaiting" value="${minWaiting}"/>
+		      <sysproperty key="numPlayersPerGame" value="${numPlayersPerGame}"/>
+		      <sysproperty key="numRobotsPerGame" value="${numRobotsPerGame}"/>
+		      <sysproperty key="host" value="${server.host}"/>
+		      <sysproperty key="port" value="${server.port}"/>
+		      <classpath>
+			<path refid="maven.test.classpath"/>
+		      </classpath>
+		    </java>
+		  </tasks>
+		</configuration>
+	      </execution>
+	    </executions>
+	  </plugin>
+	</plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+  <properties>
+    <jvm.args>-client -Xmx1g -Xms32m</jvm.args>
+    <jvm.args.extra></jvm.args.extra>
+    <logging.properties>${basedir}/src/test/properties/logging.properties</logging.properties>
+    
+    <server.host>localhost</server.host>
+    <server.port>3000</server.port>
+    
+    <connectTimeout></connectTimeout>
+    <maxClients></maxClients>
+    <moveDelay></moveDelay>
+    <newClientDelay></newClientDelay>
+    <minWaiting></minWaiting>
+    <numPlayersPerGame></numPlayersPerGame>
+    <numRobotsPerGame></numRobotsPerGame>
+  </properties>
+
+
+</project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>run</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <goals>
+                <goal>process-test-resources</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>single-node-server</activatedProfile>
+            </activatedProfiles>
+        </action>
+    </actions>

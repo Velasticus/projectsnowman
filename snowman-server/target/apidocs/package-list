@@ -1,0 +1,6 @@
+com.sun.darkstar.example.snowman.server
+com.sun.darkstar.example.snowman.server.exceptions
+com.sun.darkstar.example.snowman.server.impl
+com.sun.darkstar.example.snowman.server.interfaces
+com.sun.darkstar.example.snowman.server.service
+com.sun.darkstar.example.snowman.server.tasks

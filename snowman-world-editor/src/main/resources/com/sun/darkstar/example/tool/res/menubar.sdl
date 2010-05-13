@@ -1,0 +1,50 @@
+MenuBar
+    File
+        New=doNew
+        Load=doLoad
+        Save=doSave
+        Export World=doExportWorld 
+        Exit=doExit
+    Create
+        World=doCreateWorld   
+        Terrain=doCreateTerrain	
+        TextureLayer=doCreateTextureLayer 
+    Delete
+        Selected Entity=doDeleteSelected
+        Terrain=doDeleteTerrain	
+        Selected TextureLayer=doDeleteTextureLayer
+MainPanel
+    Layout:
+        class=java.awt.BorderLayout
+    Components
+        JPanel
+            Name=View
+            Border=javax.swing.border.TitledBorder,\
+                   javax.swing.border.LineBorder
+            Position:
+                cardinal=CENTER
+        JTabbedPane
+            Name=ProjectPane
+            Tabs
+                SceneGrpah
+                Assets
+            Position:
+                cardinal=WEST
+        JPanel
+            Position:
+                cardinal=EAST
+            Layout:
+                class=java.awt.GridLayout
+                params
+                    width=1
+                    height=2
+            Components
+                JPanel
+                    Name=Object Attributes
+                    Border=javax.swing.border.LineBorder,\
+                           javax.swing.border.TitledBorder
+               JPanel
+                    Name=ToolAttributes
+                    Border=javax.swing.border.LineBorder,\
+                           javax.swing.border.TitledBorder
+                    

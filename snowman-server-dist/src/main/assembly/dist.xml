@@ -1,0 +1,36 @@
+<assembly>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <formats>
+    <format>zip</format>
+  </formats>
+  
+  <dependencySets>
+
+    <!-- Include the dependencies -->
+    <dependencySet>
+      <excludes>
+	<exclude>com.projectdarkstar.server:sgs-server:jar</exclude>
+	<exclude>com.projectdarkstar.server:sgs-shared:jar</exclude>
+	<exclude>com.projectdarkstar.ext.berkeleydb:db:jar</exclude>
+	<exclude>com.sleepycat:je:jar</exclude>
+	<exclude>*:zip</exclude>
+      </excludes>
+      <outputDirectory></outputDirectory>
+      <useProjectArtifact>false</useProjectArtifact>
+    </dependencySet>
+
+  </dependencySets>
+
+
+
+  <fileSets>
+    <!-- Include the README files -->
+    <fileSet>
+      <directory>src/main/etc</directory>
+      <outputDirectory></outputDirectory>
+    </fileSet>
+
+  </fileSets>
+
+
+</assembly>

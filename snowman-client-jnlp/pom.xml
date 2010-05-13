@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+    <artifactId>projectsnowman</artifactId>
+    <version>0.2-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>snowman-client-jnlp</artifactId>
+  <name>Project Snowman Webstart Client </name>
+  <packaging>jar</packaging>
+  <dependencies>
+      <dependency>
+        <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+        <artifactId>snowman-client</artifactId>
+        <version>${version}</version>
+      </dependency>
+       <dependency>
+        <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+        <artifactId>snowman-client</artifactId>
+        <classifier>winbinaries</classifier>
+        <version>${version}</version>
+      </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+     <plugin>
+        <groupId>org.codehaus.mojo.webstart</groupId>
+        <artifactId>webstart-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jnlp-inline</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <jnlp>
+            <!-- we play with the resource path and template relative path to test MOJO-391 -->
+            <inputTemplateResourcePath>${project.basedir}/src/</inputTemplateResourcePath>
+            <inputTemplate>jnlp/template.vm</inputTemplate>
+            <outputFile>snowman.jnlp</outputFile>
+            <mainClass>com.sun.darkstar.example.snowman.ClientApplication</mainClass>
+          </jnlp>
+          <!-- SIGNING -->
+          <!-- defining this will automatically sign the jar and its dependencies -->
+          <unsignAlreadySignedJars>true</unsignAlreadySignedJars>
+          <sign>
+            <keystore>/tmp/keystore</keystore>
+            <keypass>m2m2m2</keypass>
+            <storepass>m2m2m2</storepass>
+            <!--sigfile>m2m2m2</sigfile-->
+            <alias>alias</alias>
+            <validity>180</validity>
+            <dnameCn>www.nhos.com</dnameCn>
+            <dnameOu>CTO</dnameOu>
+            <dnameO>NPhos</dnameO>
+            <dnameL>Billerica</dnameL>
+            <dnameSt>Massachusettes</dnameSt>
+            <dnameC>US</dnameC>
+            <verify>true</verify>
+            <keystoreConfig>
+              <delete>true</delete>
+              <gen>true</gen>
+            </keystoreConfig>
+          </sign>
+        
+          <verbose>false</verbose>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

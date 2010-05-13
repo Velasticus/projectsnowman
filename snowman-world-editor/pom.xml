@@ -1,0 +1,244 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- The chat-client module is a standard jar package of chat classes
+       used exclusively by the client -->
+
+  <parent>
+    <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+    <artifactId>projectsnowman</artifactId>
+    <version>0.2-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>snowman-world-editor</artifactId>
+  <name>Project Snowman World Editor</name>
+  <packaging>jar</packaging>
+  <description>
+    World Editor for the Project Snowman example.
+  </description>
+
+  <dependencies>
+    <!-- Runtime dependencies -->
+    <dependency>
+      <groupId>com.projectdarkstar.ext.org.lwjgl</groupId>
+      <artifactId>lwjgl-binaries</artifactId>
+      <type>zip</type>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Compile and Runtime dependencies -->
+    <dependency>
+      <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+      <artifactId>snowman-client</artifactId>
+      <version>${version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+      <artifactId>jme</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+      <artifactId>jme-awt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+      <artifactId>jme-editors</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+      <artifactId>jme-terrain</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.projectdarkstar.ext.jeffpk</groupId>
+      <artifactId>saddl</artifactId>
+    </dependency>
+    
+  </dependencies>
+
+
+  <build>
+    <plugins>
+
+      <!-- Make the jar executable, referencing all of its dependencies -->
+      <plugin>
+	<artifactId>maven-jar-plugin</artifactId>
+	<configuration>
+	  <archive>
+	    <manifest>
+	      <addClasspath>true</addClasspath>
+	      <classpathPrefix>lib/</classpathPrefix>
+	      <mainClass>com.sun.darkstar.example.tool.WorldEditor</mainClass>
+	    </manifest>
+	  </archive>
+	</configuration>
+      </plugin>
+
+      <!-- The jwjgl binary package must be retrieved and unpacked
+	   Before the test phase so that they are available during
+	   runtime of the application-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+	  <!-- enable the lwjgl-binaries unpack -->
+          <execution>
+            <id>unpack-lwjgl-binaries</id>
+          </execution>
+
+	  <!-- Unbind the bdb-binaries unpack -->
+	  <execution>
+	    <id>unpack-bdb-binaries</id>
+	    <phase></phase>
+	  </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+
+  <profiles>
+
+    <!-- Automatically activated profiles based on platform
+	 These profiles are used to automatically determine
+	 which platform we are running on and therefore
+	 which lwjgl native library directory to use -->
+    <profile>
+      <id>lwjgl-macosx-x86</id>
+      <properties>
+	<lwjgl.lib.dir>mac</lwjgl.lib.dir>
+      </properties>
+      <activation>
+	<os>
+	  <family>mac</family>
+	  <arch>i386</arch>
+	</os>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>lwjgl-macosx-x86_64</id>
+      <properties>
+	<lwjgl.lib.dir>mac</lwjgl.lib.dir>
+      </properties>
+      <activation>
+	<os>
+	  <family>mac</family>
+	  <arch>x86_64</arch>
+	</os>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>lwjgl-solaris-x86</id>
+      <properties>
+	<lwjgl.lib.dir>solaris</lwjgl.lib.dir>
+      </properties>
+      <activation>
+	<os>
+	  <name>SunOS</name>
+	  <arch>x86</arch>
+	</os>
+      </activation>
+    </profile>
+    
+    <profile>
+      <id>lwjgl-linux-x86</id>
+      <properties>
+	<lwjgl.lib.dir>linux</lwjgl.lib.dir>
+      </properties>
+      <activation>
+	<os>
+	  <name>Linux</name>
+	  <arch>i386</arch>
+	</os>
+      </activation>
+    </profile>
+    
+    <profile>
+      <id>lwjgl-linux-x86_64</id>
+      <properties>
+	<lwjgl.lib.dir>linux64</lwjgl.lib.dir>
+      </properties>
+      <activation>
+	<os>
+	  <name>Linux</name>
+	  <arch>x86_64</arch>
+	</os>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>lwjgl-linux-amd64</id>
+      <properties>
+	<lwjgl.lib.dir>linux64</lwjgl.lib.dir>
+      </properties>
+      <activation>
+	<os>
+	  <name>Linux</name>
+	  <arch>amd64</arch>
+	</os>
+      </activation>
+    </profile>
+    
+    <profile>
+      <id>win32-x86</id>
+      <properties>
+	<lwjgl.lib.dir>win</lwjgl.lib.dir>
+      </properties>
+      <activation>
+	<os>
+	  <family>windows</family>
+	</os>
+      </activation>
+    </profile>
+
+    <!-- The test-run profile enables the antrun plugin
+	 to run the application in the process-test-resources
+	 phase of the lifecycle
+	 In order to run, use the following command:
+	 mvn process-test-resources -Prun-editor -->
+    <profile>
+      <id>run-editor</id>
+      <build>
+	<plugins>
+	  <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+	    <executions>
+	      <execution>
+		<id>run-editor</id>
+		<phase>process-test-resources</phase>
+		<goals>
+		  <goal>run</goal>
+		</goals>
+		<configuration>
+		  <tasks>
+		    <java classname="com.sun.darkstar.example.tool.WorldEditor"
+			  fork="true">
+		      <jvmarg line="${run.jvm.args}"/>
+		      <sysproperty key="org.lwjgl.librarypath" 
+				   file="${project.build.directory}/lwjgl-binaries/${lwjgl.lib.dir}"/>
+		      <classpath>
+			<path refid="maven.test.classpath"/>
+		      </classpath>
+		    </java>
+		  </tasks>
+		</configuration>
+	      </execution>
+	    </executions>
+	  </plugin>
+	</plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+  <properties>
+    <run.jvm.args></run.jvm.args>
+  </properties>
+
+
+</project>

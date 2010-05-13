@@ -1,0 +1,43 @@
+Project Snowman Server Distribution
+Version 0.2
+
+Version 0.2 of the Project Snowman Server Distribution is distributed
+as a collection of JAR files suitable for immediate deployment into
+a Project Darkstar container.
+
+
+
+Instructions for deploying and booting Project Snowman server:
+
+1. Install Project Darkstar server (requires version 0.9.8 or higher)
+
+2. Deploy Project Snowman server into Project Darkstar container
+   by copying the JAR files shipped with this bundle into the
+   "deploy" directory of the Project Darkstar installation.
+
+3. Boot Project Darkstar server by executing the following (where
+   ${SGS_HOME} is the path to the Project Darkstar installation:
+   java -jar ${SGS_HOME}/bin/sgs-boot.jar
+
+
+
+Customizable runtime configuration options:
+Project Snowman server is configured to accept several runtime configuration
+options.  These options can be modified via the usual configuration
+methods for a Project Darkstar server application.  The standard way is
+to add the configuration options to the "sgs-server.properties" file in
+the "conf" directory of the Project Darkstar server installation.
+
+property name:	numPlayersPerGame
+default value:	2
+description:	Number of human players per game on the server side
+
+property name:	numRobotsPerGame
+default value:	2
+description:	Number of AI players per game on the server side
+
+property name:	robotDelay
+default value:	2000
+description:	Number of milliseconds AI players wait before making
+		first move
+

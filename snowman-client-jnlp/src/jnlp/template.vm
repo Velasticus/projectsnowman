@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://fgejz7aa.joyent.us/snowman" href="$outputFile">
+ <information>
+    <title>Snowman</title>
+    <vendor>The RedDwarf Project</vendor>
+    <description kind="one-line">Game</description>
+    <description kind="short">Project Snowman Demo RedDwarf Game</description>
+    <description kind="tooltip">Project Snowman</description>
+    <shortcut online="false"><desktop/><menu submenu="Project Snowman"/></shortcut>
+ </information>
+ <security>
+ <all-permissions/>
+ </security>
+ <resources>
+    <j2se version="1.6+" initial-heap-size="32m" max-heap-size="1024m" />
+    <property name="jnlp.versionEnabled" value="true"/>
+    <property name="server.host" value="fgejz7aa.joyent.us"/>
+    <property name="server.port" value="3000" />
+    <nativelib href="snowman-client-0.2-SNAPSHOT-winbinaries.jar"/>
+    $dependencies
+ </resources>
+ <application-desc main-class="$mainClass">
+ </application-desc>
+</jnlp>

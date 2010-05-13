@@ -1,0 +1,225 @@
+<html>
+<title>
+World Editor Tutorial
+</title>
+<body>
+For those of you who would like to try their hand at map making, here's a basic
+tutorial for the editor.
+<h3>
+GETTING STARTED
+</h3>
+<ol>
+<li>
+   Fire up the editor.
+<li>
+   Use the menu and <b>Create->World</b>
+<li>
+  Next use the menu and <b>Create->Terrain</b>
+<li>
+   In the terrain dialog, choose a small width and depth, probably less than
+   4 or 5. These numbers mean how many blocks per side to make the terrain
+   from. The sample map we have been using lately is 1 x 1. Because of how
+   flags and spawns are put down, you might want to keep width and depth equal
+   to each other. Leave the <b>Triangles</b> per mesh number alone.
+<li>
+   You should see a blue outline now, showing you where your terrain is. If
+   not, open the tree in the <b>Scene Graph</b> tab and locate and select
+   <b>rootNode->Battle->StaticRoot->Terrain_View</b>. You can also left click on
+   the <b>View</b> panel and use the WASD keys and your mouse (drag with left mouse
+   button) to navigate around a bit.
+<li>
+   There are no undo/redo commands in this editor, so make sure you use the
+   save and load commands in the <b>File</b> menu to back up your work.
+</ol>
+<h3>
+PAINTING TEXTURE ONTO THE TERRAIN
+</h3>
+<ol>
+<li>
+   To make the terrain stick out, you'll need some textures. For that, make
+   sure you have checked out the <tt>/trunk/resources</tt> directory from
+   <a href="https://project-snowman.dev.java.net/svn/project-snowman">
+   https://project-snowman.dev.java.net/svn/project-snowman</a>. This folder has
+   some important textures needed for correct painting.
+<li>
+   Ok, now back in the editor, in the menu choose: <b>Create->TextureLayer</b>.
+<li>
+   A file chooser will appear. Navigate to where you checked out the <tt>resources</tt>
+   directory and locate the subfolder <tt>texture/Terrain</tt>. In there you will see
+   five <tt>jpg</tt> files. Each texture layer you make must use one of these files as
+   they are the only ones that have currently been properly exported for use in
+   the game. Choose one (such as <tt>Snow.jpg</tt>)
+<li>
+   Another file chooser will appear asking for an alpha image. You must choose
+   one of the <tt>512x512_X.png</tt> files. Make sure you choose a different one for
+   each layer you make as well. Try starting with <t>_1</tt> for the first layer and
+   <tt>_2</tt> for the next, etc. You CAN NOT reuse a <tt>png</tt> file for two layers.
+<li>
+   You can go on to set up more layers if you want. The more layers you use
+   though, the bigger performance hit in the game. Also, because of the way
+   layering was implemented, it is important to know that your layer order
+   matters. The second layer you add will always be drawn on top of the first
+   layer... the third layer will draw always over both the first and second,
+   etc.  So you need to plan ahead here.
+<li>
+   Ok, now that your textures are ready to go, you are ready to paint. First,
+   click on the <b>Paint</b> button on the top of the screen. You will see a round
+   blue circle appear - this is your brush. If you mouse over the View area,
+   you'll see that the brush moves with your mouse whenever you are over the
+   terrain.
+<li>
+   Choose a layer texture to paint with by clicking on the <b>Texture Layers</b> tab
+   and then clicking the texture layer you want to paint with.
+<li>
+   Now... and this is important to get right... Go to the <b>Tool Attributes</b> table
+   on the lower right and double click on the value to the right of <b>Intensity</b>.
+   This is .1 by default which is incredibly low for painting. Set it to
+   something higher such as 25, then click <b>ENTER</b> to accept the value.
+<li>
+   You can also change your radius the same way, or use the mouse wheel.
+<li>
+    Mouse over your terrain and then hold down the right mouse button...
+    You're painting! 
+<li>
+    If you are not happy with something you painted, set your brush to <b>Erase</b>
+    mode by clicking the <b>Erase</b> button at the top. Choose the texture layer to
+    change in the texture layers tab and then erase away with your right mouse
+    button.
+<li>
+    Note that in order to avoid having any holes in the terrain, you should
+    probably paint your first layer all over the place. To do that easily,
+    set your radius to something high, like 50. Then set your intensity to
+    something high like 500, and paint a little bit. Should go by pretty fast.
+    Just remember to set it back to reasonable values when you paint your other
+    layers on over it.
+<li>
+    Also, remember that the surface will look different to the players as they
+    will be looking from a close up angle. So zoom in and have a peek every
+    so often.
+</ol>
+<h3>
+MOLDING THE TERRAIN
+</h3>
+<ol>
+<li>
+   The snowman game counts on having a pretty level playing field, so for the
+   most part, you should keep things pretty smooth. But you might want to edge
+   the terrain in some hills to give the illusion that the world doesn't just
+   end.
+<li>
+   To do that, set your brush to the <b>Raise</b> mode via the <b>Raise</b> button at the top.
+   Your brush will change to red, letting you know you are in terrain molding
+   mode.
+<li>
+   IMPORTANT: make sure you look at your intensity value. It should be
+   something very small, like 0.1 or less. Large values will make the terrain
+   flip out and you'll have to start over from where you last saved (you did
+   save, right?)
+<li>
+   Use your brush via the right mouse button and raise the terrain. You can
+   also use the lower and smooth modes.
+<li>
+   Snowmen can not walk over hills (they will either walk through them if they
+   are low enough, or run into them) So again, remember to use this for slight
+   embellishments or for edging the terrain.
+<li>
+   Also, snowmen walk at height=0 no matter what, so again, keep that terrain
+   at it's initial place in most of the area.
+</ol>
+<h3>
+PLACING PROPS
+</h3>
+<ol>
+<li>
+   There are a couple props you can place around the map. They are located on
+   the <b>Props</b> tab on the left.
+<li>
+   To add one, select it in the props list and drag it into the <b>View</b> panel.
+   Release your mouse when it is in the location you want to place the prop at.
+<li>
+   Your blue selection box will change to highlight the new prop.
+<li>
+   Notice the <b>Object Attributes</b> panel to the right. This is linked to the
+   currently selected item. You can change your selection by clicking in the
+   tree, or by choosing <b>Select</b> mode via the <b>Select</b> button at the top and then
+   right clicking on the item you wish to select.
+<li>
+   You can use the <b>Object Attributes</b> panel to change the location, rotation and
+   scale of your selected item. This allows you to customize the objects and
+   add more variety to the scene. For example, if you place a few trees close
+   together, but give them different scales and rotations, they appear to be
+   different trees on casual inspection. Without making those changes though,
+   the uniformity will stick out.
+<li>
+   Only use the properties panel on the top level of a prop. Using it on the
+   terrain could have unexpected consequences. Note also that although you can
+   edit the sub nodes of a prop, your changes at that level will not appear in
+   the game.
+</ol>
+<h3>
+EXPORTING TO THE GAME
+</h3>
+<ol>
+<li>
+   To export your level for use in the game, you must actually export it twice,
+   once for the client and once for the server. First we'll do the Client copy.
+<li>
+   In the menu, choose <b>File->Export World</b>.
+<li>
+   In the dialog that comes up, click the <b>Choose File</b> button and pick where
+   you want to save the file (somewhere you'll remember) and the file name.
+   Exported worlds should have the extension <tt>.wld</tt>.
+<li>
+   Click the <b>Save</b> button.
+<li>
+   Back in the <b>Export</b> dialog, look for the <b>Export Textures</b> check box. Check it,
+   then click the <b>Export</b> button.
+<li>
+   Repeat steps 2-5 for the Server copy, but in step 5, DO NOT check the <b>Export
+   Textures</b> button.
+<li>
+   Now you should have two <tt>.wld</tt> files and a handful of <tt>.tex</tt> files. To actually
+   make them part of the game, place them as follows:
+<ul>
+<li>
+	 <tt>*.tex</tt> files should go in the snowman CLIENT project under
+	 <tt>src/main/java/com/sun/darkstar/example/snowman/data/texture/</tt>.
+<li>
+	 Your client <tt>.wld</tt> file should be renamed <tt>Battle.wld</tt> and placed
+	 in the snowman CLIENT project under
+	 <tt>src/main/java/com/sun/darkstar/example/snowman/data/world/</tt>.
+<li>
+	 Your server <tt>.wld</tt> file should also be renamed <tt>Battle.wld</tt> and
+	 placed in the snowman COMMON
+	 <tt>src/main/java/com/sun/darkstar/example/snowman/common/data/world/</tt>.
+</ul>
+<li>
+   You'll probably need to refresh your workspace if you are running Eclipse
+   or Netbeans so that they will pick up the new files.
+<li>
+   Restart your server and clients if needed to get the latest changes.
+</ol>
+
+<h3>
+QUICK KEYS
+</h3>
+You can use the following quick keys in the View Panel. You may need to left
+click on the panel before they will work.
+<p>
+W - move forward <br>
+A - strafe left <br>
+D - strafe right <br>
+S - move backward <br>
+Q - move up <br>
+Z - move down <br>
+ <br>
+F1 - take a screen shot. <br>
+ <br>
+T - show the triangles in the scene <br>
+N - show the normal vectors in the scene <br>
+B - show the bounding volumes in the scene. <br>
+L - toggle on/off opengl lighting. <br>
+C - report camera's current position to the console <br>
+R - report current memory usage to the console <br>
+</body>
+</html>

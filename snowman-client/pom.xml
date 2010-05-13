@@ -1,0 +1,352 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/maven-v4_0_0.xsd">
+<modelVersion>4.0.0</modelVersion>
+
+<!-- The chat-client module is a standard jar package of chat classes
+       used exclusively by the client -->
+
+<parent>
+    <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+    <artifactId>projectsnowman</artifactId>
+    <version>0.2-SNAPSHOT</version>
+</parent>
+
+<artifactId>snowman-client</artifactId>
+<name>Project Snowman Client</name>
+<packaging>jar</packaging>
+<description>
+    Client module for the Project Snowman example.
+</description>
+
+<dependencies>
+    <!-- Compile time dependencies -->
+    <dependency>
+        <groupId>org.reddwarfserver.client</groupId>
+        <artifactId>sgs-client-api</artifactId>
+    </dependency>
+
+    <!-- Runtime dependencies -->
+    <dependency>
+        <groupId>org.reddwarfserver.client</groupId>
+        <artifactId>sgs-client</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+      
+    
+
+    <!-- Compile and Runtime dependencies -->
+    <dependency>
+        <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+        <artifactId>snowman-common</artifactId>
+        <version>${version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+        <artifactId>jme</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+        <artifactId>jme-audio</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+        <artifactId>jme-collada</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+        <artifactId>jme-effects</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+        <artifactId>jme-font</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+        <artifactId>jme-gamestates</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+        <artifactId>jme-model</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+        <artifactId>jme-scene</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+        <artifactId>jme-terrain</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.com.jmonkeyengine</groupId>
+        <artifactId>jme-xml</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.org.lwjgl</groupId>
+        <artifactId>lwjgl</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.org.lwjgl</groupId>
+        <artifactId>lwjgl_util</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.jorbis</groupId>
+        <artifactId>jorbis</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.fenggui</groupId>
+        <artifactId>fenggui</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.neakor</groupId>
+        <artifactId>environmentsystem</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.projectdarkstar.ext.neakor</groupId>
+        <artifactId>md5importer</artifactId>
+    </dependency>  
+</dependencies>
+
+
+<build>
+<plugins>
+
+<!-- Make the jar executable, referencing all of its dependencies -->
+<plugin>
+    <artifactId>maven-jar-plugin</artifactId>
+    <version>2.3</version>
+    <configuration>
+        <archive>
+            <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>lib/</classpathPrefix>
+                <mainClass>com.sun.darkstar.example.snowman.ClientApplication</mainClass>
+            </manifest>
+        </archive>
+    </configuration>
+</plugin>
+
+ <!-- make the natives jars -->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+    <version>2.3</version>
+    <executions>
+        <execution>
+            <phase>package</phase>
+            <goals>
+                <goal>jar</goal>
+            </goals>
+            <configuration>
+                <artifactId>snowman-client-winbinaries</artifactId>
+                <classifier>winbinaries</classifier>
+                <classesDirectory>target/lwjgl-binaries/win32</classesDirectory>
+                <archive>
+                    <manifest>
+                        <addClasspath>false</addClasspath>
+                    </manifest>
+                </archive>
+           </configuration>
+        </execution>
+    </executions>
+</plugin>
+
+<!--
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+    <version>2.3</version>
+    <executions>
+        <execution>
+            <phase>package</phase>
+            <goals>
+                <goal>jar</goal>
+            </goals>
+            <configuration>
+                <artifactId>snowman-client-macbinaries</artifactId>
+                <classifier>macbinaries</classifier>
+                <classesDirectory>target/lwjgl-binaries/macosx</classesDirectory>
+                <archive>
+                    <manifest>
+                        <addClasspath>false</addClasspath>
+                    </manifest>
+                </archive>
+           </configuration>
+        </execution>
+    </executions>
+</plugin>
+-->
+<!-- The lwjgl binary package must be retrieved and unpacked
+           Before the test phase so that they are available during
+           runtime of the application-->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <executions>
+        <!-- enable the lwjgl-binaries unpack -->
+        <execution>
+            <id>unpack-lwjgl-binaries</id>
+        </execution>
+    </executions>
+</plugin>
+
+
+
+</plugins>
+</build>
+
+
+<profiles>
+
+    <!-- Automatically activated profiles based on platform
+         These profiles are used to automatically determine
+         which platform we are running on and therefore
+         which lwjgl native library directory to use -->
+    <profile>
+        <id>lwjgl-macosx-x86</id>
+        <properties>
+            <lwjgl.lib.dir>mac</lwjgl.lib.dir>
+        </properties>
+        <activation>
+            <os>
+                <family>mac</family>
+                <arch>i386</arch>
+            </os>
+        </activation>
+    </profile>
+
+    <profile>
+        <id>lwjgl-macosx-x86_64</id>
+        <properties>
+            <lwjgl.lib.dir>mac</lwjgl.lib.dir>
+        </properties>
+        <activation>
+            <os>
+                <family>mac</family>
+                <arch>x86_64</arch>
+            </os>
+        </activation>
+    </profile>
+
+    <profile>
+        <id>lwjgl-solaris-x86</id>
+        <properties>
+            <lwjgl.lib.dir>solaris</lwjgl.lib.dir>
+        </properties>
+        <activation>
+            <os>
+                <name>SunOS</name>
+                <arch>x86</arch>
+            </os>
+        </activation>
+    </profile>
+
+    <profile>
+        <id>lwjgl-linux-x86</id>
+        <properties>
+            <lwjgl.lib.dir>linux</lwjgl.lib.dir>
+        </properties>
+        <activation>
+            <os>
+                <name>Linux</name>
+                <arch>i386</arch>
+            </os>
+        </activation>
+    </profile>
+
+    <profile>
+        <id>lwjgl-linux-x86_64</id>
+        <properties>
+            <lwjgl.lib.dir>linux64</lwjgl.lib.dir>
+        </properties>
+        <activation>
+            <os>
+                <name>Linux</name>
+                <arch>x86_64</arch>
+            </os>
+        </activation>
+    </profile>
+
+    <profile>
+        <id>lwjgl-linux-amd64</id>
+        <properties>
+            <lwjgl.lib.dir>linux64</lwjgl.lib.dir>
+        </properties>
+        <activation>
+            <os>
+                <name>Linux</name>
+                <arch>amd64</arch>
+            </os>
+        </activation>
+    </profile>
+
+    <profile>
+        <id>win32-x86</id>
+        <properties>
+            <lwjgl.lib.dir>win</lwjgl.lib.dir>
+        </properties>
+        <activation>
+            <os>
+                <family>windows</family>
+            </os>
+        </activation>
+    </profile>
+
+
+    <!-- The test-run profile enables the antrun plugin
+         to run the application in the process-test-resources
+         phase of the lifecycle
+         In order to run, use the following command:
+         mvn process-test-resources -Prun-client -->
+    <profile>
+        <id>run-client</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>run-client</id>
+                            <phase>process-test-resources</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <tasks>
+                                    <java classname="com.sun.darkstar.example.snowman.ClientApplication"
+                            fork="true">
+                                        <jvmarg line="${jvm.args} ${jvm.args.extra}"/>
+                                        <sysproperty key="reliable" value="false"/>
+                                        <sysproperty key="server.host" value="${server.host}"/>
+                                        <sysproperty key="server.port" value="${server.port}"/>
+                                        <sysproperty key="java.util.logging.config.file"
+                                       file="${logging.properties}"/>
+                                        <sysproperty key="org.lwjgl.librarypath"
+                                       file="${project.build.directory}/lwjgl-binaries/${lwjgl.lib.dir}"/>
+                                        <classpath>
+                                            <path refid="maven.test.classpath"/>
+                                        </classpath>
+                                    </java>
+                                </tasks>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+
+</profiles>
+
+<properties>
+    <jvm.args>-Xmx1024m -Xms32m</jvm.args>
+    <jvm.args.extra></jvm.args.extra>
+    <logging.properties>${basedir}/src/test/properties/logging.properties</logging.properties>
+
+    <server.host>localhost</server.host>
+    <server.port>3000</server.port>
+</properties>
+
+
+</project>

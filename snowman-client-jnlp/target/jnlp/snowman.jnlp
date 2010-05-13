@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://fgejz7aa.joyent.us/snowman" href="snowman.jnlp">
+ <information>
+    <title>Snowman</title>
+    <vendor>The RedDwarf Project</vendor>
+    <description kind="one-line">Game</description>
+    <description kind="short">Project Snowman Demo RedDwarf Game</description>
+    <description kind="tooltip">Project Snowman</description>
+    <shortcut online="false"><desktop/><menu submenu="Project Snowman"/></shortcut>
+ </information>
+ <security>
+ <all-permissions/>
+ </security>
+ <resources>
+    <j2se version="1.6+" initial-heap-size="32m" max-heap-size="1024m" />
+    <property name="jnlp.versionEnabled" value="true"/>
+    <property name="server.host" value="fgejz7aa.joyent.us"/>
+    <property name="server.port" value="3000" />
+    <nativelib href="snowman-client-0.2-SNAPSHOT-winbinaries.jar"/>
+    
+<jar href="snowman-client-jnlp-0.2-SNAPSHOT.jar"/>
+<jar href="snowman-client-0.2-SNAPSHOT.jar" main="true"/>
+<jar href="sgs-client-0.10.1.jar"/>
+<jar href="sgs-shared-1.12.jar"/>
+<jar href="mina-core-1.1.0.jar"/>
+<jar href="slf4j-api-1.4.0.jar"/>
+<jar href="slf4j-jdk14-1.4.0.jar"/>
+<jar href="snowman-common-0.2-SNAPSHOT.jar"/>
+<jar href="jme-2.0-S1.jar"/>
+<jar href="jme-terrain-2.0-S1.jar"/>
+<jar href="jme-audio-2.0-S1.jar"/>
+<jar href="jme-collada-2.0-S1.jar"/>
+<jar href="jme-effects-2.0-S1.jar"/>
+<jar href="jme-font-2.0-S1.jar"/>
+<jar href="jme-gamestates-2.0-S1.jar"/>
+<jar href="jme-model-2.0-S1.jar"/>
+<jar href="jme-scene-2.0-S1.jar"/>
+<jar href="jme-xml-2.0-S1.jar"/>
+<jar href="lwjgl-2.0rc2.jar"/>
+<jar href="lwjgl_util-2.0rc2.jar"/>
+<jar href="jorbis-0.0.17.jar"/>
+<jar href="fenggui-1.0-S1.jar"/>
+<jar href="environmentsystem-1.1.jar"/>
+<jar href="md5importer-1.2.4.jar"/>
+<jar href="snowman-client-0.2-SNAPSHOT-winbinaries.jar"/>
+
+ </resources>
+ <application-desc main-class="com.sun.darkstar.example.snowman.ClientApplication">
+ </application-desc>
+</jnlp>

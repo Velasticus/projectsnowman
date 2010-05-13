@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+    <artifactId>projectsnowman</artifactId>
+    <version>0.2-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>snowman-server-dist</artifactId>
+  <name>Project Snowman Server Distribution</name>
+  <packaging>pom</packaging>
+  <description>
+    Server distribution package for the Project Snowman example.
+  </description>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.projectdarkstar.example.projectsnowman</groupId>
+      <artifactId>snowman-server</artifactId>
+      <version>${version}</version>
+    </dependency>
+  </dependencies>
+
+
+  <build>
+    <plugins>
+
+      <!-- Zip artifact is generated with the assembly plugin
+	   and assembled according to the dist.xml assembly descriptor -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>src/main/assembly/dist.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>attached</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+
+
+
+</project>
